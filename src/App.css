@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-container {
+  text-align: left;
+  display: block;
+  max-width: 200px;
+  margin: auto;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+}
+
+.navigation li {
+  margin: 0 10px 0 10px;
+}
