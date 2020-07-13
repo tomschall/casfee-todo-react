@@ -1,40 +1,34 @@
 import React, { Component } from 'react';
+import Counter from './counter';
+import { connect } from 'react-redux';
+import {
+  increment,
+  decrement,
+  addTodo,
+  setTodos,
+  toggleTodo,
+} from '../actions';
+import { getTodosState } from '../selectors';
 
 class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       todo: '',
-      todos: [
-        { name: 'Milch kaufen', done: true },
-        { name: 'Rasen mähen', done: false },
-        { name: 'Todo App Coden', done: true },
-        { name: 'Zug fahren', done: false },
-        { name: 'Schlafen gehen', done: true },
-        { name: 'Ferien', done: true },
-        { name: 'Kochen', done: true },
-        { name: 'Lernen', done: false },
-      ],
     };
   }
 
-  toggleTodo = (e) => {
-    const todos = this.state.todos;
-    const [todo] = this.state.todos.filter(
-      (todo) => todo.name === e.currentTarget.name,
-    );
-    todo.done = !todo.done;
-    todos[this.state.todos.indexOf(todo)] = todo;
-    this.setState({ todos });
+  componentDidMount() {}
+
+  _toggleTodo = (id) => {
+    this.props.toggleTodo(id);
   };
 
   _handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       if (e.currentTarget.value === '') return;
-      const todos = this.state.todos;
-      console.log('e', e.currentTarget.value);
-      todos.push({ name: e.currentTarget.value, done: false });
-      this.setState({ todos, todo: '' });
+      this.props.addTodo(e.currentTarget.value);
+      this.setState({ todo: '' });
     }
   };
 
@@ -44,7 +38,7 @@ class Todo extends Component {
 
   _renderTodos = (done) => {
     {
-      return this.state.todos
+      return this.props.todos
         .filter((todo) => {
           return todo.done === done;
         })
@@ -52,9 +46,10 @@ class Todo extends Component {
           return (
             <li key={i}>
               <input
+                key={i}
                 type="checkbox"
                 name={todo.name}
-                onChange={this.toggleTodo}
+                onChange={() => this._toggleTodo(todo.id)}
                 checked={todo.done}
               />
               {todo.name}
@@ -81,9 +76,18 @@ class Todo extends Component {
         <div className="todo-container">
           <ul className="todo-list">{this._renderTodos(false)}</ul>
         </div>
+        {/* <Counter /> */}
+        <button onClick={this.props.increment}>+</button>
+        <button onClick={this.props.decrement}>-</button>
       </React.Fragment>
     );
   }
 }
 
-export default Todo;
+export default connect((state) => ({ todos: getTodosState(state) }), {
+  increment,
+  decrement,
+  addTodo,
+  setTodos,
+  toggleTodo,
+})(Todo);

@@ -7,11 +7,13 @@ import Navigation from './components/navigation';
 import Stream from './components/stream';
 import Todo from './components/todo';
 import NotFound from './components/notFound';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const counter = useSelector((state) => state.counter);
   return (
     <div className="App">
-      <Navigation />
+      <Navigation counter={counter} />
       <Switch>
         <Route path="/myname" component={MyName} />
         <Route path="/seconds" component={Seconds} />

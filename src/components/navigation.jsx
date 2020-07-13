@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 class Navigation extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
+
   render() {
     return (
       <React.Fragment>
@@ -30,6 +30,7 @@ class Navigation extends Component {
               <span>Todo</span>
             </Link>
           </li>
+          <li>counter: {this.props.counter}</li>
         </ul>
       </React.Fragment>
     );
