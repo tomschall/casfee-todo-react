@@ -17,7 +17,6 @@ export const decrement = () => {
 export const ADD_TODO = 'ADD_TODO';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
-export const SET_TODOS = 'SET_TODOS';
 
 /*
  * other constants
@@ -43,8 +42,4 @@ export function toggleTodo(id) {
 
 export function setVisibilityFilter(filter) {
   return { type: SET_VISIBILITY_FILTER, filter };
-}
-
-export function setTodos(todos) {
-  return { type: SET_TODOS, todos };
 }

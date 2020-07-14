@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import Counter from './counter';
 import { connect } from 'react-redux';
-import {
-  increment,
-  decrement,
-  addTodo,
-  setTodos,
-  toggleTodo,
-} from '../actions';
+import { increment, decrement, addTodo, toggleTodo } from '../actions';
 import { getTodosState } from '../selectors';
+import MyName from './myName';
 
 class Todo extends Component {
   constructor(props) {
@@ -17,8 +12,6 @@ class Todo extends Component {
       todo: '',
     };
   }
-
-  componentDidMount() {}
 
   _toggleTodo = (id) => {
     this.props.toggleTodo(id);
@@ -88,6 +81,5 @@ export default connect((state) => ({ todos: getTodosState(state) }), {
   increment,
   decrement,
   addTodo,
-  setTodos,
   toggleTodo,
 })(Todo);
